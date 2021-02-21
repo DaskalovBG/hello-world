@@ -1,0 +1,125 @@
+#pragma once
+#include<iostream>
+#include"Weapon.h"
+class HumanA
+{
+private:
+	std::string name;
+	Weapon& weaponObject;
+	
+public:
+
+	HumanA(std::string HumanAName, Weapon& weaponObject);
+	~HumanA();
+	//copy constructor implementation
+	//HumanA(const HumanA& OtherHumanA)
+
+	void attack();
+};
+
+#include "HumanA.h"
+
+HumanA::HumanA(std::string HumanAName, Weapon& HumanAWeapon)
+	: name(HumanAName), weaponObject(HumanAWeapon)
+{}
+
+HumanA::~HumanA() {}
+void HumanA::attack() { std::cout << name << " attacks with " << weaponObject.getType() << std::endl; };
+
+
+#pragma once
+#include<iostream>
+#include "Weapon.h"
+class HumanB
+{
+	private:
+		std::string name;	
+		Weapon WeaponObject;
+public:
+	HumanB(std::string HumanBName);
+	~HumanB();
+
+	//void setWeapon(Weapon& t) {t = WeaponObject;}
+
+	const Weapon& setWeapon(Weapon t) { WeaponObject = t; return WeaponObject; };
+
+	void attack();
+};
+
+#include "HumanB.h"
+
+HumanB::HumanB(std::string HumanBName)
+	: name(HumanBName)
+{
+	const Weapon& weapon = Weapon();
+}
+
+HumanB::~HumanB() {}
+
+void HumanB::attack()
+{
+	std::cout << name << " attacks with his weapon " << WeaponObject.getType() << std::endl;
+}
+
+#pragma once
+#include<iostream>
+class Weapon
+{
+private:
+	std::string type;
+public:
+	Weapon() = default;
+	Weapon(std::string WeaponType);
+	Weapon(const Weapon& OtherWeapon);
+	~Weapon(); 
+
+	const std::string& getType();
+
+	void setType(std::string newWeaponType);
+	/*void setType(std::string newWeaponType){
+		type = newWeaponType;
+	}*/
+
+};
+
+
+#include "Weapon.h"
+#include <iostream>
+
+Weapon::Weapon(std::string WeaponType) : type(WeaponType){}
+
+Weapon::Weapon(const Weapon& OtherWeapon) : type(OtherWeapon.type) {}
+
+Weapon::~Weapon(){}
+
+const std::string& Weapon::getType() { return type; };
+
+//void Weapon::setType(std::string newWeaponType) {
+//	std::string* typeholder;     // cr8 ptr of type str
+//	typeholder = &newWeaponType; // give the ptr the address of the input variable
+//	type = *typeholder;          // assign the value stored in the address to the type member variable
+//}
+void Weapon::setType(std::string newWeaponType){ type = newWeaponType; }
+
+#include<iostream>
+#include"Weapon.h"
+#include "HumanA.h"
+#include "HumanB.h"
+
+#define LOG(x) std::cout << x << std::endl;
+
+int main() {
+	
+	Weapon club = Weapon("Crude spiked club"); //creates copy of object weapon
+
+    HumanA H1("Boban", club);
+	H1.attack();
+	club.setType("Broad Sword");
+	H1.attack();
+
+	HumanB H2("Zoran");
+	H2.setWeapon(club);
+	H2.attack();
+	club.setType("Collossus Blade");
+	H2.attack();
+}
