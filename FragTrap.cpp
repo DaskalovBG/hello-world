@@ -32,23 +32,19 @@ void FragTrap::takeDamage(unsigned int amount)
 
 void FragTrap::beRepaired(unsigned int amount)
 {
-	if (hitPoints <= maxHitPoints) {
+	while (hitPoints <= maxHitPoints)
+	{
 		hitPoints += amount;
+		std::cout << "Replenished life: " << hitPoints << std::endl;
 	}
-
-	else {
-		hitPoints = maxHitPoints;
-	}
-
-	if (energyPoints <= maxEnergyPoints)
+	
+	while(energyPoints <= maxEnergyPoints)
 	{
 		energyPoints += amount;
+		std::cout << "Replenished energy: " << hitPoints << std::endl;
 	}
-	else {
+		hitPoints = maxHitPoints;
 		energyPoints = maxEnergyPoints;
-	}
-
-
 }
 
 void FragTrap::rangedAttack(const std::string& target)
