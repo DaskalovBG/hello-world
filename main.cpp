@@ -1,16 +1,18 @@
+#include "Peon.h"
+#include "Sorcerer.h"
+#include "Victim.h"
 #include <iostream>
-#include "FragTrap.h"
-#include "ScavTrap.h"
+
 int main() {
-	srand(time(NULL));
 
-	FragTrap Emo("Emo");
-	ScavTrap Acho("Acho");
+	Sorcerer Kevin("Kevin", "graybeard");
+	Victim Garnett("Garnett");
+	Peon Durant("Durant");
 
-	std::cout << Emo.meleeAttackDamage << std::endl;
+    std::cout << static_cast<const std::string&>(Kevin) << "\n" 
+		      << static_cast<const std::string&>(Garnett) << "\n"
+		      << static_cast<const std::string&>(Durant) <<std::endl;
+	Kevin.polymorph(Garnett);
+	Kevin.polymorph(Durant);
 
-	Emo.meleeAttack(Acho.GetName());
-	std::cout << Acho.hitPoints << std::endl;
-
-	return 0;
 }
